@@ -1,12 +1,8 @@
-Basic react application for swiggy frontend clone
+Food Ordering Website UI 🍴👨‍🍳
+Overview
+👉 A responsive and user-friendly food ordering website UI built with React JS, HTML, CSS, and JavaScript 🚀
 
-clone it
-
-npm i
-
-npm run start
-
-filter and sort options are available
-
-netlify hosted link:
-https://main--swiggy-demo-frontend.netlify.app/#
+🔥 Key Features:
+Search and filter options 🎯
+Menu categorization and item details 🍔
+Shopping cart and checkout functionality 🛍️
