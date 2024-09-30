@@ -10,7 +10,7 @@ export default function Footer() {
           className="h-20 m-8"
         ></img> */}
         <span className="text-[#FFFFFF] m-[-40px] font-bold text-[25px] ">
-          R E C I P E R
+        Tasty Food Recipes
         </span>
       </div>
     </div>

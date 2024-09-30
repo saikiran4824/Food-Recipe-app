@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="w-[85%]  flex md:flex-row flex-col gap-4 items-center justify-between p-4 ">
       <span className="text-[#FC8112] m-[-40px] font-bold text-[25px] ">
-        R E C I P E R
+        Tasty Food Recipes
       </span>
 
       <form className="flex items-center justify-between md:w-[25%] p-2 bg-slate-200 rounded-md">
