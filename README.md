@@ -5,4 +5,4 @@ Overview
 🔥 Key Features:
 Search and filter options 🎯
 Menu categorization and item details 🍔
-Shopping cart and checkout functionality 🛍️
+Recipe Details🧾
