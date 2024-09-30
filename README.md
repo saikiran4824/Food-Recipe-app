@@ -1,5 +1,9 @@
 Food Ordering Website UI 🍴👨‍🍳
-https://food-recipe-ui-app.vercel.app/     ↙️↙️VERCEL      NETLIFY↗️↗️↗️
+
+
+https://food-recipe-ui-app.vercel.app/     ↙️↙️VERCEL   
+
+NETLIFY↗️↗️↗️
 
 
 Overview
