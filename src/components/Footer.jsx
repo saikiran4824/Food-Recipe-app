@@ -9,7 +9,7 @@ export default function Footer() {
           alt="footer"
           className="h-20 m-8"
         ></img> */}
-        <span className="text-[#FFFFFF] m-[-40px] font-bold text-[25px] ">
+        <span className="text-[#FFFFFF]  font-bold text-[25px] ">
         Tasty Food Recipes
         </span>
       </div>

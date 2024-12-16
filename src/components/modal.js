@@ -19,16 +19,20 @@ export default function Modal({ prop }) {
     fetchData();
   }, [prop]);
 
-  console.log(data);
+  useEffect(() => {
+    if (data) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [data]); 
 
   return (
-    <div className=" bg-white  p-2  text-gray-700 m-auto  md:w-[60%] w-[90%] rounded-2xl flex flex-col ">
+    <div className="bg-white p-2 text-gray-700 m-auto md:w-[60%] w-[90%] rounded-2xl flex flex-col">
       <div className="h-[200px] md:h-[300px] flex items-center justify-center object-cover relative rounded-[15px] overflow-hidden shadow-xl shadow-slate-600 mb-4">
         <img
           src={data?.strMealThumb}
           alt={data?.strMeal}
-          className="w-full m-auto mt-[-30%] "
-        />{" "}
+          className="w-full m-auto mt-[-30%]"
+        />
       </div>
 
       <h2 className="text-xl font-bold p-2">{data?.strMeal}</h2>
@@ -45,7 +49,7 @@ export default function Modal({ prop }) {
         {data?.strCategory}
       </p>
 
-      <div className="flex flex-wrap ml-auto  mr-auto max-w-[90%]">
+      <div className="flex flex-wrap ml-auto mr-auto max-w-[90%]">
         <pre className="flex flex-col whitespace-pre-wrap">
           <span className="text-lg font-bold p-2">Instructions:</span>
           {data?.strInstructions}

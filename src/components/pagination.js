@@ -13,6 +13,18 @@ export default function Pagination({
     pageNumbers.push(i);
   }
 
+  // Function to scroll to the top of the page
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handlePageChange = (pageNumber) => {
+    // Fetch new data (via paginate)
+    paginate(pageNumber);
+    // Scroll to the top
+    scrollToTop();
+  };
+
   return (
     <nav className="w-full p-4">
       <ul className="pagination  flex-wrap justify-end flex gap-2 ">
@@ -21,13 +33,18 @@ export default function Pagination({
           className={`flex page-item border-orange-500 bg-[#FC8112] text-white text-lg font-bold border-2 rounded-md text-center w-8 h-8 ${
             currentPage <= 1 ? "pointer-events-none opacity-50" : ""
           }`}
-          onClick={() => paginate(currentPage - 1)}
+          onClick={() => {
+            if (currentPage > 1) {
+              handlePageChange(currentPage - 1);
+            }
+          }}
           disabled={currentPage <= 1}
         >
           <a href="#!" className="m-auto ">
             <FaArrowLeft />
           </a>
         </li>
+
         {/* Page numbers */}
         {pageNumbers.map((number) => (
           <li
@@ -38,11 +55,16 @@ export default function Pagination({
                 : "text-[#FC8112] bg-white border-2"
             }`}
           >
-            <a onClick={() => paginate(number)} href="#!" className="page-link">
+            <a
+              onClick={() => handlePageChange(number)}
+              href="#!"
+              className="page-link"
+            >
               {number}
             </a>
           </li>
         ))}
+
         {/* Next button */}
         <li
           className={`flex page-item border-orange-500 bg-[#FC8112] text-white text-lg font-bold border-2 rounded-md text-center w-8 h-8 ${
@@ -50,7 +72,11 @@ export default function Pagination({
               ? "pointer-events-none opacity-50"
               : ""
           }`}
-          onClick={() => paginate(currentPage + 1)}
+          onClick={() => {
+            if (currentPage < Math.ceil(totalPosts / postsPerPage)) {
+              handlePageChange(currentPage + 1);
+            }
+          }}
           disabled={currentPage >= Math.ceil(totalPosts / postsPerPage)}
         >
           <a href="#!" className="m-auto ">
