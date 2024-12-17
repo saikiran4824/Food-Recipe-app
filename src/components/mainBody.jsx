@@ -9,8 +9,7 @@ function Main() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("American");
   const [filteredMeals, setFilteredMeals] = useState([]);
-  const [query, setQuery] = useState(""); // To store search query
-
+  const [query, setQuery] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage] = useState(8);
   const [postsort, setSort] = useState("Sort by");
@@ -25,18 +24,17 @@ function Main() {
       meal.strMeal.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredMeals(filtered);
-    setCurrentPage(1); // Reset to first page when search query changes
-  }, [meals, query]); // This effect will run when meals or query changes
-
+    setCurrentPage(1); 
+  }, [meals, query]); 
   const handleSearch = (e) => {
-    setQuery(e.target.value); // Update the query state as user types
+    setQuery(e.target.value);
   };
 
   const handleOptionClick = (e) => {
     setSelectedOption(e);
-    setQuery(""); // Reset search query when category changes
+    setQuery(""); 
     setCurrentPage(1);
-    setIsOpen(false); // Close the dropdown after selecting an option
+    setIsOpen(false); 
   };
 
   const handleSortChange = (value) => {
@@ -48,7 +46,7 @@ function Main() {
     } else if (value === "Sort Z-A") {
       sortedMeals = [...filteredMeals].sort((a, b) => b.strMeal.localeCompare(a.strMeal));
     }
-    setFilteredMeals(sortedMeals); // Update filteredMeals after sorting
+    setFilteredMeals(sortedMeals); 
   };
 
   useEffect(() => {
@@ -66,7 +64,7 @@ function Main() {
 
         setCategory(category_data.meals);
         setMeals(data.meals);
-        setFilteredMeals(data.meals); // Initialize filteredMeals with fetched meals
+        setFilteredMeals(data.meals);
       } catch (error) {
         console.error(error);
       }
@@ -78,22 +76,20 @@ function Main() {
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
 
-  // Use filteredMeals here instead of meals for pagination
   const currentPosts = filteredMeals.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="pt-5 w-full h-full flex flex-col items-center bg-[#ebedee93] justify-center relative ">
+    <div className="md:pt-5 w-full h-full flex flex-col items-center bg-[#ebedee93] justify-center relative ">
       <p className="text-2xl font-bold w-[75%]"></p>
       <div className="flex relative flex-wrap gap-5 ml-6 md:ml-0 md:w-3/4 mt-5 mb-8">
         
-           {/* Search Input */}
       <div className="">
       <input
   type="text"
   value={query}
-  onChange={handleSearch} // Update query state and filter meals dynamically
+  onChange={handleSearch} 
   placeholder="Search for meals..."
   className="bg-white text-[#FC8112] border-2 border-[#FC8112] py-2 px-4 rounded-full shadow-lg focus:outline-none pl-4 pr-12" // Add padding-right for space for the icon
 />
@@ -101,7 +97,7 @@ function Main() {
   xmlns="http://www.w3.org/2000/svg"
   viewBox="0 0 30 30"
   className="text-slate-400 h-8 absolute ml-52 -mt-5 md:mt-3 sm:top-1/4 transform -translate-y-1/2"
-  style={{ fill: "orange" }} // Changed the color to orange
+  style={{ fill: "orange" }} 
 >
   <path
     d="M13 3C7.4889971 3 3 7.4889971 3 13C3 18.511003 7.4889971 23 13 23C15.396508 23 17.597385 22.148986 19.322266 20.736328L25.292969 26.707031A1.0001 1.0001 0 1 0 26.707031 25.292969L20.736328 19.322266C22.148986 17.597385 23 15.396508 23 13C23 7.4889971 18.511003 3 13 3zM13 5C17.430123 5 21 8.5698774 21 13C21 17.430123 17.430123 21 13 21C8.5698774 21 5 17.430123 5 13C5 8.5698774 8.5698774 5 13 5z"
@@ -109,7 +105,6 @@ function Main() {
 </svg>
       </div>
         
-        {/* Filter Dropdown Button */}
         <div className="relative inline-block">
           <button
             onClick={toggleDropdown}
@@ -156,11 +151,6 @@ function Main() {
           )}
         </div>
 
-     
-
-
-
-        {/* Sort Dropdown */}
         <select
           value={postsort}
           onChange={(e) => handleSortChange(e.target.value)}
@@ -171,14 +161,12 @@ function Main() {
           <option value="Sort Z-A">Sort Z-A</option>
         </select>
 
-        {/* Additional Filters */}
         <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Fast Delivery</button>
         <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Pure Veg</button>
         <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Non Veg</button>
         <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Offer</button>
       </div>
 
-      {/* Meal List */}
       <div className="meal-list grid z-0 lg:grid-cols-4 grid-cols-1 md:grid-cols-2 mt-8">
         {currentPosts?.map((meal) => (
           <div key={meal.idMeal}>
@@ -196,11 +184,11 @@ function Main() {
       {modalval && (
         <div className="absolute p-2 top-0 bg-[#444444d0] h-full overflow-x-hidden overflow-y-auto">
           <div className=" flex flex-col items-center w-[100vw] h-[100vh]">
-            <button
+            <button 
               onClick={() => {
                 setModalVal(null);
               }}
-              className="p-2 text-xl rounded-full bg-red-400 w-[50px] font-bold text-white"
+              className="p-2 text-xl rounded-full bg-[#FC8112] w-[50px] font-bold text-white justify-end right-0 "
             >
               X
             </button>
