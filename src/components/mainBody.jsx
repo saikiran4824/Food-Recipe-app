@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MealItem from "./blocks";
 import Pagination from "./pagination";
 import Modal from "./modal";
+import MyComponent from "./header";
 
 function Main() {
   const [meals, setMeals] = useState([]);
@@ -11,7 +12,7 @@ function Main() {
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [query, setQuery] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage] = useState(8);
+  const [postPerPage] = useState(12);
   const [postsort, setSort] = useState("Sort by");
   const [modalval, setModalVal] = useState(null);
 
@@ -81,9 +82,10 @@ function Main() {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="md:pt-5 w-full h-full flex flex-col items-center bg-[#ebedee93] justify-center relative ">
-      <p className="text-2xl font-bold w-[75%]"></p>
-      <div className="flex relative flex-wrap gap-5 ml-6 md:ml-0 md:w-3/4 mt-5 mb-8">
+    <>
+    <MyComponent /> 
+    <div className="md:pt-5 w-full h-full flex flex-col items-center align-middle text-center bg-[#ebedee93] justify-center relative ">
+      <div className="flex relative flex-wrap justify-between text-center gap-5 ml-6 md:ml-0 md:w-3/4 mt-5 mb-8">
         
       <div className="">
       <input
@@ -91,18 +93,10 @@ function Main() {
   value={query}
   onChange={handleSearch} 
   placeholder="Search for meals..."
-  className="bg-white text-[#FC8112] border-2 border-[#FC8112] py-2 px-4 rounded-full shadow-lg focus:outline-none pl-4 pr-12" // Add padding-right for space for the icon
+  className="bg-white text-[#FC8112] border-2 border-[#FC8112] py-2 px-4 rounded-full shadow-lg w-[320px] focus:outline-none pl-4 pr-12" // Add padding-right for space for the icon
 />
-   <svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 30 30"
-  className="text-slate-400 h-8 absolute ml-52 -mt-5 md:mt-3 sm:top-1/4 transform -translate-y-1/2"
-  style={{ fill: "orange" }} 
->
-  <path
-    d="M13 3C7.4889971 3 3 7.4889971 3 13C3 18.511003 7.4889971 23 13 23C15.396508 23 17.597385 22.148986 19.322266 20.736328L25.292969 26.707031A1.0001 1.0001 0 1 0 26.707031 25.292969L20.736328 19.322266C22.148986 17.597385 23 15.396508 23 13C23 7.4889971 18.511003 3 13 3zM13 5C17.430123 5 21 8.5698774 21 13C21 17.430123 17.430123 21 13 21C8.5698774 21 5 17.430123 5 13C5 8.5698774 8.5698774 5 13 5z"
-  ></path>
-</svg>
+   
+
       </div>
         
         <div className="relative inline-block">
@@ -154,18 +148,17 @@ function Main() {
         <select
           value={postsort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="bg-white text-[#FC8112] border-2 border-[#FC8112] py-2 px-4 rounded-full shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300"
-        >
-          <option value="Sort by">Sort By</option>
-          <option value="Sort A-Z">Sort A-Z</option>
-          <option value="Sort Z-A">Sort Z-A</option>
+          className="flex items-center bg-[#FC8112] text-white py-2 px-4  rounded-full shadow-lg hover:bg-[#d56c0b] transition duration-300"
+          >
+          <option                     className="px-4 py-2 cursor-pointer hover:bg-[#FC8112] hover:text-white flex items-center transition duration-300"
+ value="Sort by">Sort By</option>
+          <option                     className="px-4 py-2 cursor-pointer hover:bg-[#FC8112] hover:text-white flex items-center transition duration-300"
+ value="Sort A-Z">Sort A-Z</option>
+          <option                     className="px-4 py-2 cursor-pointer hover:bg-[#FC8112] hover:text-white flex items-center transition duration-300"
+ value="Sort Z-A">Sort Z-A</option>
         </select>
 
-        <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Fast Delivery</button>
-        <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Pure Veg</button>
-        <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Non Veg</button>
-        <button className="button-style shadow-lg hover:bg-[#FC8112] hover:text-white transition duration-300">Offer</button>
-      </div>
+           </div>
 
       <div className="meal-list grid z-0 lg:grid-cols-4 grid-cols-1 md:grid-cols-2 mt-8">
         {currentPosts?.map((meal) => (
@@ -206,6 +199,7 @@ function Main() {
         />
       </div>
     </div>
+    </>
   );
 }
 
