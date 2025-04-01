@@ -6,6 +6,10 @@ interface Meal {
   strMeal: string
   strMealThumb: string
   strInstructions: string
+  strTags: string
+  strYoutube: string
+  ingredients: string[]
+  measurements: string[]
 }
 
 const MealDetails: React.FC = () => {
@@ -21,7 +25,27 @@ const MealDetails: React.FC = () => {
         const data = await response.json()
 
         setTimeout(() => {
-          setMeal(data.meals ? data.meals[0] : null)
+          const mealData = data.meals ? data.meals[0] : null
+
+          if (mealData) {
+            const ingredients: string[] = []
+            const measurements: string[] = []
+            for (let i = 1; i <= 20; i++) {
+              const ingredient = mealData[`strIngredient${i}`]
+              const measure = mealData[`strMeasure${i}`]
+              if (ingredient && ingredient !== "" && measure) {
+                ingredients.push(ingredient)
+                measurements.push(measure)
+              }
+            }
+
+            setMeal({
+              ...mealData,
+              ingredients,
+              measurements,
+            })
+          }
+
           setLoading(false)
         }, 500)
       } catch (error) {
@@ -63,10 +87,26 @@ const MealDetails: React.FC = () => {
         />
       </div>
 
+      {/* Ingredients Section */}
+      <div className='mt-8 max-w-3xl text-center bg-white p-6 rounded-lg shadow-md'>
+  <h2 className='text-2xl md:text-3xl font-semibold text-gray-900 mb-4'>Ingredients</h2>
+  <ul className='grid grid-cols-1 sm:grid-cols-2 text-left lg:grid-cols-3 gap-4 text-base text-gray-700'>
+    {meal.ingredients.map((ingredient, index) => (
+      <li
+        key={index}
+        className='relative pl-8 before:absolute before:left-0 before:top-1 before:w-3 before:h-3 before:bg-[#FC8112] before:rounded-full'
+      >
+        <span>{ingredient}</span>
+        <span className='ml-2'>{meal.measurements[index]}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
       {/* Instructions Section */}
       <div className='mt-8 max-w-3xl text-center bg-white p-6 rounded-lg shadow-md'>
         <h2 className='text-2xl md:text-3xl font-semibold text-gray-900 mb-4'>How to Prepare</h2>
-
         <div className='text-lg text-gray-700 leading-relaxed text-left space-y-4'>
           {(meal.strInstructions || '')
             .split('. ')
@@ -81,6 +121,23 @@ const MealDetails: React.FC = () => {
             ))}
         </div>
       </div>
+
+    
+
+      {/* YouTube Link Section */}
+      {meal.strYoutube && (
+        <div className='mt-6'>
+          <h3 className='text-xl text-gray-800 font-semibold mb-2'>Watch on YouTube</h3>
+          <a
+            href={meal.strYoutube}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-[#FC8112] underline'
+          >
+            {meal.strMeal} Recipe Video
+          </a>
+        </div>
+      )}
 
       {/* Back Button */}
       <button
