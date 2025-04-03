@@ -1,36 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.image-overlay {
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 1));
-}
-
-.button-style {
-  display: flex;
-
-  align-items: flex-start;
-  gap: 10px;
-  border: 1px;
-  padding-left: 0.75rem; /* 12px */
-  padding-right: 0.75rem; /* 12px */
-  padding: 0.5rem; /* 4px */
-  border-radius: 99px; /* Large value for full rounding */
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 4px 8px rgba(0, 0, 0, 0.1); /* Neutral shadow with 300 and medium shadow */
-}
-
-.modal,
-.overlay {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-}
-.modal-img {
-  @apply h-[350px] w-full object-cover shadow-2xl;
-}

@@ -20,15 +20,15 @@ const Header: React.FC<HeaderProps> = ({
   handleSortChange,
 }) => {
   return (
-    <header className='w-full bg-white shadow-md pt-4 px-2 md:px-6  flex flex-col md:flex-row md:items-center md:justify-between'>
+    <header className='w-full sticky top-0 bg-white shadow-md  px-2 md:px-6  flex flex-col md:flex-row md:items-center md:justify-between z-50'>
       {/* Logo Section */}
-      <div className='text-[#FC8112] hover:cursor-pointer font-extrabold text-[28px] md:text-[35px] tracking-wide flex items-center md:-mt-4 gap-2'>
+      <div className='text-[#FC8112] hover:cursor-pointer my-4 font-extrabold text-[28px]  tracking-wide flex items-center  gap-2'>
         <Logo></Logo>
         <span>Tasty Food Recipes </span>
       </div>
 
       {/* Search, Filter, and Sort Component */}
-      <div className=' flex flex-wrap justify-center md:justify-end items-center gap-4'>
+      {/* <div className=' flex flex-wrap justify-center md:justify-end items-center gap-4'>
         <SearchFilterSort
           query={query}
           setQuery={setQuery}
@@ -37,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
           category={category}
           handleSortChange={handleSortChange}
         />
-      </div>
+      </div> */}
     </header>
   )
 }

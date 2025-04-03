@@ -2,9 +2,13 @@ import React from 'react'
 
 const Footer: React.FC = () => {
   return (
-    <div className='w-[100vw] bg-[#050402]'>
-      <div className='w-[90%] m-auto flex items-center bg-[#050402] h-20'>
-        <span className='text-[#FFFFFF] font-bold text-[25px]'>Tasty Food Recipes</span>
+    <div className='w-full bg-[#FC8112] py-4'>
+      <div className='w-[90%] mx-auto flex flex-col md:flex-row items-center justify-between text-white'>
+        <span className='font-bold text-2xl'>Tasty Food Recipes</span>
+
+        <span className='text-sm mt-2 md:mt-0'>
+          © {new Date().getFullYear()} Sai Kiran💚Preethi
+        </span>
       </div>
     </div>
   )

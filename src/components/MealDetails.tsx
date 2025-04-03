@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import Ingredients from './Ingredients'
+import Instructions from './Instructions'
+import Footer from './Footer'
 
 interface Meal {
   idMeal: string
@@ -57,7 +61,6 @@ const MealDetails: React.FC = () => {
     fetchMealDetails()
   }, [id])
 
-  // 🔹 Show spinner while loading
   if (loading) {
     return (
       <div className='flex flex-col items-center justify-center min-h-screen'>
@@ -73,84 +76,52 @@ const MealDetails: React.FC = () => {
 
   return (
     <div className='min-h-screen bg-[#f9f9f9] flex flex-col items-center py-8 px-4 md:px-8 font-[Poppins]'>
-      {/* Meal Title */}
-      <h1 className='text-4xl md:text-5xl font-extrabold text-gray-800 text-center'>
-        {meal.strMeal}
-      </h1>
 
-      {/* Meal Image */}
-      <div className='mt-6'>
-        <img
-          src={meal.strMealThumb}
-          alt={meal.strMeal}
-          className='w-full max-w-[500px] rounded-xl shadow-lg'
-        />
-      </div>
-
-      {/* Ingredients Section */}
-      <div className='mt-8 max-w-3xl text-center bg-white p-6 rounded-lg shadow-md'>
-  <h2 className='text-2xl md:text-3xl font-semibold text-gray-900 mb-4'>Ingredients</h2>
-  <ul className='grid grid-cols-1 sm:grid-cols-2 text-left lg:grid-cols-3 gap-4 text-base text-gray-700'>
-    {meal.ingredients.map((ingredient, index) => (
-      <li
-        key={index}
-        className='relative pl-8 before:absolute before:left-0 before:top-1 before:w-3 before:h-3 before:bg-[#FC8112] before:rounded-full'
+      <motion.h1
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.6 }}
+        className='text-4xl md:text-5xl font-extrabold text-[#FC8112] text-center'
       >
-        <span>{ingredient}</span>
-        <span className='ml-2'>{meal.measurements[index]}</span>
-      </li>
-    ))}
-  </ul>
-</div>
+        {meal.strMeal}
+      </motion.h1>
 
-
-      {/* Instructions Section */}
-      <div className='mt-8 max-w-3xl text-center bg-white p-6 rounded-lg shadow-md'>
-        <h2 className='text-2xl md:text-3xl font-semibold text-gray-900 mb-4'>How to Prepare</h2>
-        <div className='text-lg text-gray-700 leading-relaxed text-left space-y-4'>
-          {(meal.strInstructions || '')
-            .split('. ')
-            .filter((step) => step.trim() !== '')
-            .map((step, index) => (
-              <p
-                key={index}
-                className='relative pl-8 before:absolute before:left-0 before:top-1 before:w-3 before:h-3 before:bg-[#FC8112] before:rounded-full'
-              >
-                {step}.
-              </p>
-            ))}
+      {/* ✅ Image & Ingredients Side-by-Side on Laptop/Desktop with Equal Height & Width */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.8 }}
+        className='mt-6 w-full flex flex-col lg:flex-row items-center lg:items-stretch gap-8'
+      >
+        {/* Image Container */}
+        <div className='w-full lg:w-1/2 flex justify-center items-center'>
+          <div className='w-full max-w-[500px] h-full flex items-center justify-center bg-white shadow-lg rounded-xl'>
+            <img
+              src={meal.strMealThumb}
+              alt={meal.strMeal}
+              className='w-full h-auto max-h-[400px] object-cover rounded-xl'
+            />
+          </div>
         </div>
-      </div>
 
-    
-
-      {/* YouTube Link Section */}
-      {meal.strYoutube && (
-        <div className='mt-6'>
-          <h3 className='text-xl text-gray-800 font-semibold mb-2'>Watch on YouTube</h3>
-          <a
-            href={meal.strYoutube}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='text-[#FC8112] underline'
-          >
-            {meal.strMeal} Recipe Video
-          </a>
+        {/* Ingredients Container - Same Size as Image Container */}
+        <div className='w-full lg:w-1/2 h-full flex items-center justify-center bg-white shadow-lg rounded-xl p-6'>
+          <Ingredients ingredients={meal.ingredients} measurements={meal.measurements} />
         </div>
-      )}
+      </motion.div>
 
-      {/* Back Button */}
+      <Instructions strInstructions={meal.strInstructions} />
+
       <button
         onClick={() => navigate(-1)}
-        className='mt-4 bg-[#FC8112] text-white font-semibold px-6 py-3 rounded-full shadow-md hover:bg-[#e07010] transition-all'
+        className="mt-4 bg-[#FC8112] text-white font-semibold px-6 py-3 mb-4 rounded-full shadow-md hover:bg-[#e07010] transition"
       >
         ← Back to List
       </button>
 
-      {/* Footer */}
-      <footer className='mt-6 text-gray-500 text-sm'>
-        © {new Date().getFullYear()} Sai Kiran Food Blog | All rights reserved by Preethi.
-      </footer>
+      <Footer />
     </div>
   )
 }
