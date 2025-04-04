@@ -35,15 +35,15 @@ const SearchFilterSort: React.FC<SearchFilterSortProps> = ({
   }
 
   return (
-    <div className='flex md:flex-wrap items-center justify-center md:justify-between gap-4 md:gap-6 w-full px-0 md:px-4 mt-5 mb-8'>
+    <div className='flex md:flex-wrap items-center justify-center md:justify-between gap-4 md:gap-6 w-full px-0 md:px-4 my-3'>
       {/* Search Input */}
-      <div className='flex-grow md:flex-none'>
+      <div className='flex-grow md:flex-none '>
         <input
           type='text'
           value={query}
           onChange={handleSearch}
           placeholder='Search for meals...'
-          className='bg-white text-black border-2 border-[#FC8112] py-2 px-4 rounded-full shadow-lg w-full md:w-[320px] focus:outline-none'
+          className='bg-white text-black border-2  border-[#FC8112] py-2 px-4 rounded-full shadow-lg w-full md:w-[320px] focus:outline-none'
         />
       </div>
 
@@ -52,7 +52,7 @@ const SearchFilterSort: React.FC<SearchFilterSortProps> = ({
         <div className='relative min-w-20'>
           <button
             onClick={toggleDropdown}
-            className='flex items-center rounded-md bg-[#FC8112] text-white py-2 px-4 shadow-lg hover:bg-[#d56c0b] transition duration-300'
+            className='hidden md:block flex items-center rounded-md bg-[#FC8112] text-white py-2 px-4 shadow-lg hover:bg-[#d56c0b] transition duration-300'
           >
             <span>Filter</span>
           </button>
@@ -82,18 +82,20 @@ const SearchFilterSort: React.FC<SearchFilterSortProps> = ({
         </div>
 
         {/* Sort By Dropdown */}
-        <div>
+        <div className='hidden md:block'>
           <select
             value={postsort}
             onChange={(e) => {
               setSort(e.target.value)
               handleSortChange(e.target.value)
             }}
-            className='bg-[#FC8112] text-white py-2 px-3 rounded-md  focus:outline-none shadow-lg hover:bg-[#d56c0b] transition duration-300 focus'
+            className='bg-[#FC8112] hidden md:block  text-white py-2 px-3 rounded-md  focus:outline-none shadow-lg hover:bg-[#d56c0b] transition duration-300 focus'
           >
+            <ul className='divide-y divide-[#FC8112]'>
             <option value='Sort by'>Sort By</option>
             <option value='Sort A-Z'>Sort A-Z</option>
             <option value='Sort Z-A'>Sort Z-A</option>
+            </ul>
           </select>
         </div>
       </div>

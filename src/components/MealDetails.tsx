@@ -14,6 +14,7 @@ interface Meal {
   strYoutube: string
   ingredients: string[]
   measurements: string[]
+  meal: string
 }
 
 const MealDetails: React.FC = () => {
@@ -87,7 +88,6 @@ const MealDetails: React.FC = () => {
         {meal.strMeal}
       </motion.h1>
 
-      {/* ✅ Image & Ingredients Side-by-Side on Laptop/Desktop with Equal Height & Width */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -120,6 +120,21 @@ const MealDetails: React.FC = () => {
       >
         ← Back to List
       </button>
+      {meal.strYoutube && (
+  <div className="my-10 w-full max-w-3xl">
+    <h2 className="text-2xl font-bold text-center mb-4 text-[#FC8112]">Watch Recipe Video</h2>
+    <div className="aspect-w-20 aspect-h-9">
+      <iframe
+        className="w-full h-[315px] rounded-xl shadow-lg"
+        src={`https://www.youtube.com/embed/${meal.strYoutube.split("v=")[1]}`}
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      ></iframe>
+    </div>
+  </div>
+)}
+
 
       <Footer />
     </div>

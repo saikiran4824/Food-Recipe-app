@@ -34,7 +34,6 @@ const Instructions: React.FC<InstructionsProps> = ({ strInstructions }) => {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className='mt-8 max-w-3xl text-center bg-white p-6 rounded-lg shadow-lg border border-gray-200'
     >
-      {/* Heading with Scroll-based Scaling Effect */}
       <motion.h2
         initial={{ opacity: 0, scale: 0.8 }}
         animate={isInstructionsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -44,7 +43,6 @@ const Instructions: React.FC<InstructionsProps> = ({ strInstructions }) => {
         How to Prepare 🍽️
       </motion.h2>
 
-      {/* Instructions List with Scroll-triggered Animations */}
       <div className='text-lg text-gray-700 leading-relaxed text-left space-y-4'>
         {strInstructions
           ?.split('. ')
@@ -59,7 +57,7 @@ const Instructions: React.FC<InstructionsProps> = ({ strInstructions }) => {
                 key={index}
                 initial={{ opacity: 0, x: -20, scale: 0.95 }}
                 animate={isStepInView && index < revealedText ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut", type: "spring", stiffness: 100 }}
+                transition={{ duration: 0.01, delay: index * 0.1, ease: "easeOut", type: "spring", stiffness: 100 }}
                 className='relative pl-8 before:absolute before:left-0 before:top-1 before:w-3 before:h-3 before:bg-[#FC8112] before:rounded-full'
               >
                 {step}.

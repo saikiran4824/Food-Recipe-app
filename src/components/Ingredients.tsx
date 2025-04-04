@@ -26,7 +26,7 @@ const Ingredients: React.FC<IngredientsProps> = ({ ingredients, measurements }) 
             key={index}
             initial={{ opacity: 0, x: -10 }}
             animate={isIngredientsInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            transition={{ duration: 0.05, delay: index * 0.1 }}
             className='relative pl-8 before:absolute before:left-0 before:top-1 before:w-3 before:h-3 before:bg-[#FC8112] before:rounded-full'
           >
             <span>{ingredient}</span>

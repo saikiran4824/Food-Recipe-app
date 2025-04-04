@@ -1,50 +1,62 @@
-import React, { useState, useEffect } from 'react'
-import Skeleton from './Skeleton' // Import the Skeleton component
+import React, { useState, useEffect, useRef } from 'react';
+import Skeleton from './Skeleton'; // Import Skeleton Component
 
 interface Meal {
-  strMeal: string
-  strMealThumb: string
+  strMeal: string;
+  strMealThumb: string;
 }
 
 interface MealItemProps {
-  meal: Meal
+  meal: Meal;
 }
 
 const MealItem: React.FC<MealItemProps> = ({ meal }) => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const itemRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Set a desired delay for the skeleton (e.g., 1.5s)
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 1500)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // When item enters viewport, show shimmer for 1s before loading actual data
+          setTimeout(() => setIsLoading(false), 1000);
+        }
+      },
+      { threshold: 0.3 } // Trigger when 30% of the item is visible
+    );
 
-    return () => clearTimeout(timer) // Cleanup timer
-  }, [])
+    if (itemRef.current) {
+      observer.observe(itemRef.current);
+    }
+
+    return () => {
+      if (itemRef.current) {
+        observer.unobserve(itemRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <div className='meal-item md:m-4 flex flex-col items-center justify-center w-[90vw] md:w-[300px]'>
-      <div className='h-[300px] md:h-[200px] object-cover relative rounded-[15px] overflow-hidden'>
-        {/* Show Skeleton for a fixed time */}
-        {isLoading && <Skeleton />}
+    <div ref={itemRef} className="meal-item md:m-4 flex flex-col items-center justify-center w-[90vw] md:w-[300px]">
+      <div className="h-[300px] md:h-[200px] object-cover relative rounded-[15px] overflow-hidden">
+        {isLoading && <Skeleton />} {/* Show shimmer when loading */}
 
-        {/* Actual Image (hidden until isLoading is false) */}
-        <img
-          src={meal.strMealThumb}
-          alt={meal.strMeal}
-          className='w-[98vw] md:w-[300px] m-auto'
-        />
-
-        <div className=' w-full h-full absolute top-0 flex items-end p-2 justify-center text-[20px] font-bold text-white'></div>
+        {!isLoading && (
+          <img
+            src={meal.strMealThumb}
+            alt={meal.strMeal}
+            className="w-[98vw] md:w-[300px] m-auto transition-opacity duration-500"
+          />
+        )}
       </div>
 
-      <div className='mt-3 flex flex-col items-start w-full overflow-hidden m-3'>
-        <h3 className='font-semibold ml-4 md:ml-0 overflow-hidden text-gray-700 text-xl'>
-          {meal.strMeal}
+      <div className="mt-3 flex flex-col items-start w-full overflow-hidden m-3">
+        <h3 className="font-semibold ml-4 md:ml-0 overflow-hidden text-gray-700 text-xl">
+          { meal.strMeal} 
         </h3>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MealItem
+export default MealItem;
